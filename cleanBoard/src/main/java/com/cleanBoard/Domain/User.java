@@ -1,0 +1,27 @@
+package com.cleanBoard.Domain;
+
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Entity
+public class User extends BaseEntity{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	private String userName;
+	private String nickName;
+	private String password;
+	
+    public void modify(String nickname, String password) {
+        this.nickName = nickname;
+        this.password = password;
+    }
+}
