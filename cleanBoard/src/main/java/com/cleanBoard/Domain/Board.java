@@ -4,11 +4,13 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Builder
 public class Board extends BaseEntity{
 
@@ -26,6 +28,7 @@ public class Board extends BaseEntity{
     private List<Comment> comments;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User writer;
+	private String category;
 	
     public void update(String title, String content) {
         this.title = title;
