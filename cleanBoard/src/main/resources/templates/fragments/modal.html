@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="modalFragment">
+	<div class="modal fade" id="login" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog " style="margin-top: 15%;">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div style="margin-bottom: 3rem;">
+						<button style="float: right;" type="button" class="btn-close"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<form action="user/signin" method="POST">
+						<div
+							style="text-align: center; margin-left: auto; margin-right: auto;"
+							class="col-sm-7 col-10">
+							<h3 style="margin-bottom: 1.5rem;">
+								클린 게시판
+							</h3>
+							<div class="form-floating mb-3">
+								<input type="text" name="userName" class="form-control" id="floatingInput" placeholder="ID" autocomplete="off" style="height: 2.5rem;">
+								<label for="floatingInput" style="padding: 0.4rem .75rem;">ID</label>
+							</div>
+							<div class="form-floating">
+								<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 2.5rem;">
+								<label for="floatingPassword" style="padding: 0.4rem .75rem;">Password</label>
+							</div>
+						</div>
+						<div class="col-sm-7 col-10" style="text-align: center; margin-left: auto; margin-right: auto;">
+							<button style="width: 100%; margin-top: 2rem;" type="submit" class="btn btn-dark">Login</button>
+							<hr>
+						</div>
+					</form>
+					<div class="col-sm-7 col-10" style="text-align: center; margin-left: auto; margin-right: auto;">
+						<small style="">아직 회원이 아니신가요? 
+							<a href="" data-bs-toggle="modal" data-bs-target="#signup" style="color: black;">
+								회원가입
+							</a>
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="signup" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="margin-top: 15%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						클린 게시판
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<th:block>
+						<div style="text-align: center; margin-left: auto; margin-right: auto;" class="col-sm-7 col-10">
+							<h3>처음오셨군요!</h3>
+							<form action="user/signup" method="POST">
+								<div class="form-floating mb-3">
+									<input type="text" name="userName" class="form-control" id="floatingInput" placeholder="ID" autocomplete="off" style="height: 2.5rem;" required="required"> 
+									<label for="floatingInput" style="padding: 0.4rem .75rem; background-color: none;">ID</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="text" name="nickName" class="form-control" id="floatingname" placeholder="닉네임" autocomplete="off" style="height: 2.5rem;" required="required"> 
+									<label for="floatingname" style="padding: 0.4rem .75rem;">닉네임</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 2.5rem;" required="required"> 
+									<label for="floatingPassword" style="padding: 0.4rem .75rem;">비밀번호</label>
+								</div>
+								<div class="col-12" style="text-align: center;">
+							<button type="submit" style="width: 100%" class="btn btn-dark">회원가입</button>
+						</div>
+							</form>
+						</div>
+					</th:block>
+					<script>
+					$(document).ready(function() {
+						  $('#floatingPassword').on('blur', function() {
+						    var password = $(this).val();
+						    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,12}$/;
+
+						    if (password.length < 8 || password.length > 12) {
+						      alert("비밀번호는 8자 ~ 12자 이어야 합니다.");
+						      return false;
+						    } else if (/\s/g.test(password)) {
+						      alert("비밀번호에는 공백을 포함할 수 없습니다.");
+						      return false;
+						    } else if (!regex.test(password)) {
+						      alert("비밀번호는 숫자, 영문 대소문자, 특수문자($@$!%*?&)가 각각 1개 이상 포함되어야 합니다.");
+						      return false;
+						    }
+						    return true;
+						  });
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

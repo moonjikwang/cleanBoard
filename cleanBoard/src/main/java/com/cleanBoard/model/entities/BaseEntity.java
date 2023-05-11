@@ -1,4 +1,4 @@
-package com.cleanBoard.Domain;
+package com.cleanBoard.model.entities;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
