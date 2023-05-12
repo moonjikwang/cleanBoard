@@ -18,4 +18,12 @@ public class CommentSvc {
 		return result;
 	}
 	
+	public Comment findById(Long id) {
+		return commentRepository.findById(id).get();
+	}
+	
+	public void remove(Comment comment) {
+		commentRepository.delete(comment);
+	}
+	
 }

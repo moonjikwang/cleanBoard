@@ -15,13 +15,17 @@ public class BoardSvc {
 	@Autowired
 	private BoardRep boardRepository;
 	
+	public Board findById(Long num) {
+		return boardRepository.findById(num).get();
+	}
+	
 	public Page<Board> getFreeList(String category,Pageable pageable){
 		return boardRepository.findByCategory(category,pageable);
 	}
 	
-	public Long register(Board board) {
+	public Board register(Board board) {
 		Board result = boardRepository.save(board);
-		return result.getNum();
+		return result;
 	}
 	
 	public Board getById(Long num) {

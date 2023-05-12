@@ -7,9 +7,13 @@
 	text-decoration: none;
 	color: black;
 }
-    .form-floating label::after {
-        height: 0rem!important; /* 원하는 높이로 조정합니다. */
-   }
+.ck-editor__editable[role="textbox"] {
+    min-height: 250px;
+}
+
+.form-floating label::after {
+    height: 0rem!important; /* 원하는 높이로 조정합니다. */
+}
 
 .commentSize {
 	color: black;

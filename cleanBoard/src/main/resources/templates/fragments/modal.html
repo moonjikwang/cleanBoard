@@ -60,43 +60,23 @@
 							<h3>처음오셨군요!</h3>
 							<form action="user/signup" method="POST">
 								<div class="form-floating mb-3">
-									<input type="text" name="userName" class="form-control" id="floatingInput" placeholder="ID" autocomplete="off" style="height: 2.5rem;" required="required"> 
-									<label for="floatingInput" style="padding: 0.4rem .75rem; background-color: none;">ID</label>
+									<input type="text" name="userName" class="form-control" id="userName" placeholder="ID" autocomplete="off" style="height: 2.5rem;" required="required" pattern="^([a-z0-9_]){6,15}$" title="아이디는 영문소문자, 숫자, 언더바(_) 6~15자로 만들어주세요.">
+									<label for="userName" style="padding: 0.4rem .75rem; background-color: none;">ID</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input type="text" name="nickName" class="form-control" id="floatingname" placeholder="닉네임" autocomplete="off" style="height: 2.5rem;" required="required"> 
-									<label for="floatingname" style="padding: 0.4rem .75rem;">닉네임</label>
+									<input type="text" name="nickName" class="form-control" id="nickName" placeholder="닉네임" autocomplete="off" style="height: 2.5rem;" required="required">
+									<label for="nickName" style="padding: 0.4rem .75rem;">닉네임</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 2.5rem;" required="required"> 
-									<label for="floatingPassword" style="padding: 0.4rem .75rem;">비밀번호</label>
+									<input type="password" name="password" class="form-control" id="password" placeholder="Password" style="height: 2.5rem;" required="required" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_-+=[]{}~?:;`|/]).{6,25}$" title="비밀번호는 영문 대소문자, 숫자, 특수문자를 꼭 포함하여 6자 이상이어야 합니다.">
+									<label for="password" style="padding: 0.4rem .75rem;">비밀번호</label>
 								</div>
 								<div class="col-12" style="text-align: center;">
-							<button type="submit" style="width: 100%" class="btn btn-dark">회원가입</button>
-						</div>
+									<button type="submit" style="width: 100%" class="btn btn-dark">회원가입</button>
+								</div>
 							</form>
 						</div>
 					</th:block>
-					<script>
-					$(document).ready(function() {
-						  $('#floatingPassword').on('blur', function() {
-						    var password = $(this).val();
-						    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,12}$/;
-
-						    if (password.length < 8 || password.length > 12) {
-						      alert("비밀번호는 8자 ~ 12자 이어야 합니다.");
-						      return false;
-						    } else if (/\s/g.test(password)) {
-						      alert("비밀번호에는 공백을 포함할 수 없습니다.");
-						      return false;
-						    } else if (!regex.test(password)) {
-						      alert("비밀번호는 숫자, 영문 대소문자, 특수문자($@$!%*?&)가 각각 1개 이상 포함되어야 합니다.");
-						      return false;
-						    }
-						    return true;
-						  });
-						});
-					</script>
 				</div>
 			</div>
 		</div>
