@@ -32,4 +32,8 @@ public class BoardSvc {
 		return boardRepository.findById(num).get();
 	}
 	
+	public void remove(Board board) {
+		boardRepository.delete(board);
+	}
+	
 }

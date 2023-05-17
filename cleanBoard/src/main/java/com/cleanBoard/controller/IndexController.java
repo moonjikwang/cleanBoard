@@ -22,13 +22,15 @@ public class IndexController {
 	
     @GetMapping("/")
     public String getIndexPage() {
-        return "index";
+        return "redirect:index";
     }
     
     @GetMapping("index")
     public void index(Model model) {
     	Pageable pageable = PageRequest.of(0, 5,Sort.by("regDate").descending());
     	Page<Board> posts = boardService.getFreeList(Category.FREE.getValue(),pageable);
+    	Page<Board> notice = boardService.getFreeList(Category.NOTICE.getValue(),pageable);
     	model.addAttribute("posts",posts);
+    	model.addAttribute("notice",notice);
     }
 }

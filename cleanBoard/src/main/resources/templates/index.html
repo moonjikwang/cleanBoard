@@ -17,23 +17,27 @@
 		<main>
 			<div class="mt-4 mb-5" id="board">
 				<div class="boardTitle">
-					<h5>공지사항</h5>
+					<h5><a href="notice/list">공지사항</a></h5>
 				</div>
 				<table class="table table-hover">
 				<thead>
 					<tr>
 						<td class="col-1">글번호</td>
 						<td class="col-7">제목</td>
-						<td class="col-2">작성일</td>
+						<td class="col-3">작성일</td>
 						<td>작성자</td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>테스트1</td>
-						<td>2023.05.10 14:48</td>
-						<td>딱따고기</td>
+					<tr th:each="notice : ${notice}">
+						<td>[[${notice.num}]]</td>
+						<td>
+							<a class="text-reset" style="text-decoration: none;" th:href="@{notice/read(num=${notice.num})}">
+								[[${{notice.title}}]]
+							</a>
+						</td>
+						<td>[[${#temporals.format(notice.regDate,'yyyy-MM-dd HH:mm')}]]</td>
+						<td>[[${notice.writer.nickName}]]</td>
 					<tr>
 				</tbody>
 			</table>
@@ -54,7 +58,7 @@
 						<tr th:each="post : ${posts}">
 							<td style="width: 70%">
 								<div>
-									<a class="text-reset" style="text-decoration: none;" th:href="@{board(num=${post.num})}">
+									<a class="text-reset" style="text-decoration: none;" th:href="@{board/read(num=${post.num})}">
 										<span style="margin-bottom: 5px; display: block;">
 											[[${post.title}]]
 											<small class="commentSize" th:if="${post.comments.size != 0}" th:text="${post.comments.size}"></small>

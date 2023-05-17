@@ -19,6 +19,7 @@ public class User extends BaseEntity{
     private Long id;
 	private String userName;
 	private String nickName;
+	private String role;
 	private String password;
 	
     public void modify(String nickname, String password) {

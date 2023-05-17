@@ -23,10 +23,9 @@ import com.cleanBoard.model.entities.User;
 import com.cleanBoard.model.service.BoardSvc;
 import com.cleanBoard.model.service.UserSvc;
 
-
 @Controller
-@RequestMapping("board")
-public class BoardController {
+@RequestMapping("notice")
+public class NoticeController {
 
 	@Autowired
 	private BoardSvc boardService;
@@ -41,7 +40,7 @@ public class BoardController {
 	
 	@GetMapping("list")
 	public void list(Model model,Pageable pageable) {
-		Page<Board> posts = boardService.getFreeList(Category.FREE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
+		Page<Board> posts = boardService.getFreeList(Category.NOTICE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
 		model.addAttribute("posts", posts);
 	}
 	
@@ -50,9 +49,9 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("userInfo");
 		if(user != null) {
-			return "board/write";
+			return "notice/write";
 		}else {
-			redirectAttributes.addFlashAttribute("message","회원만 게시글작성이 가능합니다.");
+			redirectAttributes.addFlashAttribute("message","관리회원만 공지사항 작성이 가능합니다.");
 			return "redirect:/index";
 		}
 	}
@@ -64,7 +63,7 @@ public class BoardController {
 		
 		if(user != null && user.getId() == board.getWriter().getId()) {//요청자와 작성자가 일치여부확인
 			model.addAttribute("post",board);
-			return "board/modify";
+			return "notice/modify";
 		}else {
 			redirectAttributes.addFlashAttribute("message","글작성자만 수정할 수 있습니다.");
 			return getRedirectURL(board, redirectAttributes);

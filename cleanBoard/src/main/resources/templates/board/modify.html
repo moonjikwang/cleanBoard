@@ -16,15 +16,15 @@
 		<main>
 			<div class="mt-4 mb-5" id="board">
 				<div class="boardTitle">
-					<h5><a href="/cleanBoard/board/list">자유 게시판</a></h5>
+					<h5><a href="board/list">자유 게시판</a></h5>
 				</div>
 				<div class="post mt-4">
 					<form action="/cleanBoard/board/write" method="POST">
 						<input type="hidden" name="id" th:value="${session.userInfo.id}">
 						<input type="hidden" name="category" value="board">
-						<h3><input class="w-100" name="title" type="text" required="required"></h3>
+						<h3><input class="w-100" name="title" type="text" th:value="${post.title}" required="required"></h3>
 						<div class="content">
-							<textarea name="content" id="editor"></textarea>
+							<textarea name="content" id="editor">[[${post.content}]]</textarea>
 			                <script>
 			                        ClassicEditor
 			                                .create( document.querySelector( '#editor' ),{

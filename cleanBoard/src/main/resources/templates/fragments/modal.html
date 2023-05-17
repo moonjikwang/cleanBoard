@@ -10,7 +10,7 @@
 						<button style="float: right;" type="button" class="btn-close"
 							data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form action="user/signin" method="POST">
+					<form action="/cleanBoard/user/signin" method="POST">
 						<div
 							style="text-align: center; margin-left: auto; margin-right: auto;"
 							class="col-sm-7 col-10">
@@ -58,7 +58,7 @@
 					<th:block>
 						<div style="text-align: center; margin-left: auto; margin-right: auto;" class="col-sm-7 col-10">
 							<h3>처음오셨군요!</h3>
-							<form action="user/signup" method="POST">
+							<form action="/cleanBoard/user/signup" method="POST">
 								<div class="form-floating mb-3">
 									<input type="text" name="userName" class="form-control" id="userName" placeholder="ID" autocomplete="off" style="height: 2.5rem;" required="required" pattern="^([a-z0-9_]){6,15}$" title="아이디는 영문소문자, 숫자, 언더바(_) 6~15자로 만들어주세요.">
 									<label for="userName" style="padding: 0.4rem .75rem; background-color: none;">ID</label>

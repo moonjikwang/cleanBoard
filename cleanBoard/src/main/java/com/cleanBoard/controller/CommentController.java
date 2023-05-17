@@ -60,7 +60,7 @@ public class CommentController {
 
 	private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
 	    redirectAttributes.addAttribute("num", board.getNum());
-	    return "redirect:/" + board.getCategory();
+	    return "redirect:/" + board.getCategory() + "/read";
 	}
 	
 }
