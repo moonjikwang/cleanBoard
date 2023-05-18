@@ -28,9 +28,11 @@ public class IndexController {
     @GetMapping("index")
     public void index(Model model) {
     	Pageable pageable = PageRequest.of(0, 5,Sort.by("regDate").descending());
-    	Page<Board> posts = boardService.getFreeList(Category.FREE.getValue(),pageable);
-    	Page<Board> notice = boardService.getFreeList(Category.NOTICE.getValue(),pageable);
+    	Page<Board> posts = boardService.getList(Category.FREE.getValue(),pageable);
+    	Page<Board> notice = boardService.getList(Category.NOTICE.getValue(),pageable);
+    	Page<Board> gallery = boardService.getList(Category.GALLERY.getValue(),PageRequest.of(0, 6,Sort.by("regDate").descending()));
     	model.addAttribute("posts",posts);
     	model.addAttribute("notice",notice);
+    	model.addAttribute("gallery",gallery);
     }
 }

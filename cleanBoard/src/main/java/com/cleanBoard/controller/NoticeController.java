@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cleanBoard.model.entities.Board;
 import com.cleanBoard.model.entities.Category;
+import com.cleanBoard.model.entities.Role;
 import com.cleanBoard.model.entities.User;
 import com.cleanBoard.model.service.BoardSvc;
 import com.cleanBoard.model.service.UserSvc;
@@ -40,7 +41,7 @@ public class NoticeController {
 	
 	@GetMapping("list")
 	public void list(Model model,Pageable pageable) {
-		Page<Board> posts = boardService.getFreeList(Category.NOTICE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
+		Page<Board> posts = boardService.getList(Category.NOTICE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
 		model.addAttribute("posts", posts);
 	}
 	
@@ -48,7 +49,7 @@ public class NoticeController {
 	public String write(HttpServletRequest req,RedirectAttributes redirectAttributes) {
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("userInfo");
-		if(user != null) {
+		if(user != null && user.getRole().equals(Role.ADMIN.getValue())) {
 			return "notice/write";
 		}else {
 			redirectAttributes.addFlashAttribute("message","관리회원만 공지사항 작성이 가능합니다.");
@@ -96,7 +97,7 @@ public class NoticeController {
 	    return getRedirectURL(result, redirectAttributes);
 	}
 	
-	@PutMapping("modify")
+	@PostMapping("modify")
 	public String modifyPost(@RequestParam("category") String category,
 							 @RequestParam("num") Long num,
 							 @RequestParam("id") Long id,

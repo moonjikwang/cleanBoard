@@ -41,7 +41,7 @@ public class BoardController {
 	
 	@GetMapping("list")
 	public void list(Model model,Pageable pageable) {
-		Page<Board> posts = boardService.getFreeList(Category.FREE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
+		Page<Board> posts = boardService.getList(Category.FREE.getValue(),PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
 		model.addAttribute("posts", posts);
 	}
 	
@@ -97,7 +97,7 @@ public class BoardController {
 	    return getRedirectURL(result, redirectAttributes);
 	}
 	
-	@PutMapping("modify")
+	@PostMapping("modify")
 	public String modifyPost(@RequestParam("category") String category,
 							 @RequestParam("num") Long num,
 							 @RequestParam("id") Long id,

@@ -24,6 +24,7 @@ public class Board extends BaseEntity{
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
+    private String imageUrl;
     private String category;
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬

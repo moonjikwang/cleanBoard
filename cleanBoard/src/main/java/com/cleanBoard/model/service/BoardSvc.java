@@ -19,7 +19,7 @@ public class BoardSvc {
 		return boardRepository.findById(num).get();
 	}
 	
-	public Page<Board> getFreeList(String category,Pageable pageable){
+	public Page<Board> getList(String category,Pageable pageable){
 		return boardRepository.findByCategory(category,pageable);
 	}
 	

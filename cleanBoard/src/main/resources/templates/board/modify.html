@@ -19,9 +19,10 @@
 					<h5><a href="board/list">자유 게시판</a></h5>
 				</div>
 				<div class="post mt-4">
-					<form action="/cleanBoard/board/write" method="POST">
+					<form action="/cleanBoard/board/modify" method="POST">
 						<input type="hidden" name="id" th:value="${session.userInfo.id}">
 						<input type="hidden" name="category" value="board">
+						<input type="hidden" name="num" th:value="${post.num}">
 						<h3><input class="w-100" name="title" type="text" th:value="${post.title}" required="required"></h3>
 						<div class="content">
 							<textarea name="content" id="editor">[[${post.content}]]</textarea>

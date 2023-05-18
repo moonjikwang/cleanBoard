@@ -22,34 +22,44 @@
 				<table class="table table-hover">
 				<thead>
 					<tr>
-						<td class="col-1">글번호</td>
-						<td class="col-7">제목</td>
-						<td class="col-3">작성일</td>
+						<td class="col-1 d-none d-sm-table-cell">글번호</td>
+						<td class="col-8">제목</td>
+						<td class="col-3 d-none d-sm-table-cell">작성일</td>
 						<td>작성자</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="notice : ${notice}">
-						<td>[[${notice.num}]]</td>
+						<td class="d-none d-sm-table-cell">[[${notice.num}]]</td>
 						<td>
 							<a class="text-reset" style="text-decoration: none;" th:href="@{notice/read(num=${notice.num})}">
 								[[${{notice.title}}]]
 							</a>
 						</td>
-						<td>[[${#temporals.format(notice.regDate,'yyyy-MM-dd HH:mm')}]]</td>
+						<td class="d-none d-sm-table-cell">[[${#temporals.format(notice.regDate,'yyyy-MM-dd HH:mm')}]]</td>
 						<td>[[${notice.writer.nickName}]]</td>
 					<tr>
 				</tbody>
 			</table>
 			</div>
 			<div class="row">
-				<div class="mt-4 col-6" id="freeboard">
+				<div class="mt-4 col-md-6" id="freeboard">
 					<div class="boardTitle">
-						<h5>사진 게시판</h5>
+						<h5><a href="gallery/list">사진 게시판</a></h5>
 					</div>
-					내용
+					<div class="row">
+						<th:block th:each="gallery : ${gallery}">
+							<div class="col-4 mt-2">
+								<a th:href="@{gallery/read(num=${gallery.num})}">
+									<img class="galleryImg" width="100%" th:src="@{https://tomcat.jikwang.net/cleanBoard__${gallery.imageUrl}__}">
+									<span class="mb-0 d-block" th:text="${gallery.title}"></span>
+									<small>[[${gallery.writer.nickName}]] [[${#temporals.format(gallery.regDate,'yyyy-MM-dd')}]]</small>
+								</a>
+							</div>
+						</th:block>
+					</div>
 				</div>
-				<div class="mt-4 col-6" id="freeboard">
+				<div class="mt-4 col-md-6" id="freeboard">
 					<div class="boardTitle">
 						<h5><a href="board/list">자유 게시판</a></h5>
 					</div>

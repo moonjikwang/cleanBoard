@@ -19,6 +19,9 @@
 	color: black;
 	font-weight: 700;
 }
+.galleryImg {
+	border-radius: 5%;
+}
 
 .post .content {
 	min-height: 200px;
