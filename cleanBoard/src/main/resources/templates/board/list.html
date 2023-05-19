@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
@@ -20,17 +20,17 @@
 				<table class="table table-hover">
 				<thead>
 					<tr>
-						<td class="col-1">글번호</td>
-						<td class="col-6">제목</td>
-						<td class="col-3">작성일</td>
-						<td>작성자</td>
+						<th class="col-1 d-none d-sm-table-cell">글번호</th>
+						<th class="col-8">제목</th>
+						<th class="col-2 d-none d-sm-table-cell">작성일</th>
+						<th>작성자</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="post : ${posts}">
-						<td th:text="${post.num}"></td>
+						<td class="d-none d-sm-table-cell" th:text="${post.num}"></td>
 						<td><a class="text-reset" style="text-decoration: none;" th:href="@{/board/read(num=${post.num})}" th:text="${post.title}"></a> <small class="commentSize" th:if="${post.comments.size != 0}" th:text="${post.comments.size}"></small></td>
-						<td th:text="${#temporals.format(post.regDate,'yyyy-MM-dd HH:mm')}"></td>
+						<td class="d-none d-sm-table-cell" th:text="${#temporals.format(post.regDate,'yyyy-MM-dd HH:mm')}"></td>
 						<td th:text="${post.writer.nickName}"></td>
 					<tr>
 				</tbody>

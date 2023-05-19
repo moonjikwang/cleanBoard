@@ -17,5 +17,6 @@ public class UserDTO {
 	private String userName;
 	private String nickName;
 	private String password;
-	private LocalDateTime modDate,regDate;
+	private LocalDateTime modDate;
+	private LocalDateTime regDate;
 }

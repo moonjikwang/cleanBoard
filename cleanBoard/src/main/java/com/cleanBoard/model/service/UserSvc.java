@@ -1,5 +1,7 @@
 package com.cleanBoard.model.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,16 +16,21 @@ public class UserSvc {
 	UserRep userRepository;
 	
 	public User findById(Long id) {
-		return userRepository.findById(id).get();
+		Optional<User> user = userRepository.findById(id);
+		if(user.isPresent()) {
+			return user.get();
+		}else {
+			return null;
+		}
 	}
 	
 	public User signup(User user) {
 		return userRepository.save(user);
 	}
 	
-	public User signin(String userName,String Password,PasswordEncoder encoder) {
+	public User signin(String userName,String password,PasswordEncoder encoder) {
 		User origin = userRepository.findByUserName(userName);
-		if(origin != null && encoder.matches(Password, origin.getPassword())) {
+		if(origin != null && encoder.matches(password, origin.getPassword())) {
 			return origin;
 		}else {
 			return null;

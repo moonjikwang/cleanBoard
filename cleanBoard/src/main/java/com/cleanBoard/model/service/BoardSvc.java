@@ -1,5 +1,7 @@
 package com.cleanBoard.model.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,12 @@ public class BoardSvc {
 	private BoardRep boardRepository;
 	
 	public Board findById(Long num) {
-		return boardRepository.findById(num).get();
+		Optional<Board> optional = boardRepository.findById(num);
+		if(optional.isPresent()) {
+			return optional.get();
+		}else {
+			return null;
+		}
 	}
 	
 	public Page<Board> getList(String category,Pageable pageable){
@@ -24,12 +31,7 @@ public class BoardSvc {
 	}
 	
 	public Board register(Board board) {
-		Board result = boardRepository.save(board);
-		return result;
-	}
-	
-	public Board getById(Long num) {
-		return boardRepository.findById(num).get();
+		return boardRepository.save(board);
 	}
 	
 	public void remove(Board board) {

@@ -7,6 +7,11 @@
 	text-decoration: none;
 	color: black;
 }
+
+html {
+	overflow-y:scroll; 
+}
+
 .ck-editor__editable[role="textbox"] {
     min-height: 250px;
 }

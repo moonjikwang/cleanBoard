@@ -19,14 +19,9 @@ class CleanBoardApplicationTests {
 	@Autowired
 	UserSvc userService;
 	
-//	@Test
-//	void contextLoads() {
-//		User user = userService.findById(1L);
-//		
-//		for(int i = 0; i < 30; i++) {
-//			Board board = Board.builder().category(Category.FREE.getValue()).title("테스트입니다."+ i).content("테스트입니다."+ i).writer(user).build();
-//			boardService.register(board);
-//		}
-//	}
+	@Test
+	void contextLoads() {
+		System.out.println("test");
+	}
 
 }

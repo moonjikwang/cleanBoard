@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
@@ -27,7 +27,7 @@
 						<h3><input class="w-100" name="title" type="text" th:value="${post.title}" required="required"></h3>
 						<h3><input class="w-100 form-control" name="image" type="file" accept=".jpg, .jpeg, .png, .gif"></h3>
 						<div class="content">
-							<img style="max-width: 100%" th:src="@{https://tomcat.jikwang.net/cleanBoard__${post.imageUrl}__}">
+							<img style="max-width: 100%" alt="image" th:src="@{https://tomcat.jikwang.net/cleanBoard__${post.imageUrl}__}">
 							<textarea name="content" id="editor">[[${post.content}]]</textarea>
 			                <script>
 			                        ClassicEditor

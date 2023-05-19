@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
@@ -22,7 +22,7 @@
 					<h3>[[${post.title}]]</h3>
 					<small>[[${#temporals.format(post.regDate,'yyyy-MM-dd HH:mm')}]] [[${post.writer.nickName}]]</small>
 					<hr>
-					<img style="max-width:100%" th:src="@{https://tomcat.jikwang.net/cleanBoard__${post.imageUrl}__}">
+					<img style="max-width:100%" alt="image" th:src="@{https://tomcat.jikwang.net/cleanBoard__${post.imageUrl}__}">
 					<div class="content">
 						<p id="content"></p>
 					</div>
@@ -49,7 +49,7 @@
 						<table class="table" style="margin-bottom: 50px;">
 							<th:block th:each="comment : ${post.comments}">
 								<tr>
-									<td style="border: none;">
+									<th style="border: none;">
 										<small><strong>[[${comment.writer.nickName}]]</strong></small>
 										<th:block th:if="${session.userInfo != null}">
 											<small style="float: right;" th:if="${session.userInfo.getId() == comment.writer.id}">
@@ -57,7 +57,7 @@
 											</small>
 										</th:block> <br>
 										<small>[[${#temporals.format(comment.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</small><br>
-									</td>
+									</th>
 								</tr>
 								<tr style="border-bottom: solid 1px rgb(73, 80, 87);">
 									<td colspan="2" style="border: none; height: 4rem;">[[${comment.comment}]]</td>

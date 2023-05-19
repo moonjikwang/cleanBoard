@@ -1,9 +1,10 @@
 package com.cleanBoard.model.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cleanBoard.model.entities.Board;
 import com.cleanBoard.model.entities.Comment;
 import com.cleanBoard.model.repository.CommentRep;
 
@@ -14,12 +15,16 @@ public class CommentSvc {
 	private CommentRep commentRepository;
 	
 	public Comment register(Comment comment) {
-		Comment result = commentRepository.save(comment);
-		return result;
+		return commentRepository.save(comment);
 	}
 	
 	public Comment findById(Long id) {
-		return commentRepository.findById(id).get();
+		Optional<Comment> optional = commentRepository.findById(id);
+		if(optional.isPresent()) {
+			return optional.get();
+		}else {
+			return null;
+		}
 	}
 	
 	public void remove(Comment comment) {

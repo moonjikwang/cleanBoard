@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
@@ -21,27 +21,27 @@
 					<h5><a href="notice/list">공지사항</a></h5>
 				</div>
 				<table class="table table-hover">
-				<thead>
-					<tr>
-						<td class="col-1 d-none d-sm-table-cell">글번호</td>
-						<td class="col-8">제목</td>
-						<td class="col-3 d-none d-sm-table-cell">작성일</td>
-						<td>작성자</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="notice : ${notice}">
-						<td class="d-none d-sm-table-cell">[[${notice.num}]]</td>
-						<td>
-							<a class="text-reset" style="text-decoration: none;" th:href="@{notice/read(num=${notice.num})}">
-								[[${{notice.title}}]]
-							</a>
-						</td>
-						<td class="d-none d-sm-table-cell">[[${#temporals.format(notice.regDate,'yyyy-MM-dd HH:mm')}]]</td>
-						<td>[[${notice.writer.nickName}]]</td>
-					<tr>
-				</tbody>
-			</table>
+					<thead>
+						<tr>
+							<th class="col-1 d-none d-sm-table-cell">글번호</th>
+							<th class="col-8">제목</th>
+							<th class="col-3 d-none d-sm-table-cell">작성일</th>
+							<th>작성자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="notice : ${notice}">
+							<td class="d-none d-sm-table-cell">[[${notice.num}]]</td>
+							<td>
+								<a class="text-reset" style="text-decoration: none;" th:href="@{notice/read(num=${notice.num})}">
+									[[${{notice.title}}]]
+								</a>
+							</td>
+							<td class="d-none d-sm-table-cell">[[${#temporals.format(notice.regDate,'yyyy-MM-dd HH:mm')}]]</td>
+							<td>[[${notice.writer.nickName}]]</td>
+						<tr>
+					</tbody>
+				</table>
 			</div>
 			<div class="row">
 				<div class="mt-4 col-md-6" id="freeboard">
@@ -52,7 +52,7 @@
 						<th:block th:each="gallery : ${gallery}">
 							<div class="col-4 mt-2">
 								<a th:href="@{gallery/read(num=${gallery.num})}">
-									<img class="galleryImg" width="100%" style="max-height: 10rem;" th:src="@{https://tomcat.jikwang.net/cleanBoard__${gallery.imageUrl}__}">
+									<img class="galleryImg" alt="image" width="100%" style="max-height: 10rem;" th:src="@{https://tomcat.jikwang.net/cleanBoard__${gallery.imageUrl}__}">
 									<span class="mb-0 d-block" th:text="${gallery.title}"></span>
 									<small>[[${gallery.writer.nickName}]] [[${#temporals.format(gallery.regDate,'yyyy-MM-dd')}]]</small>
 								</a>
@@ -65,9 +65,8 @@
 						<h5><a href="board/list">자유 게시판</a></h5>
 					</div>
 					<table class="table table-hover">
-					<tbody>
 						<tr th:each="post : ${posts}">
-							<td style="width: 70%">
+							<th style="width: 70%">
 								<div>
 									<a class="text-reset" style="text-decoration: none;" th:href="@{board/read(num=${post.num})}">
 										<span style="margin-bottom: 5px; display: block;">
@@ -87,9 +86,8 @@
 										</span>
 									</a>
 								</div>
-							</td>
+							</th>
 						</tr>
-					</tbody>
 				</table>
 				</div>
 			</div>
