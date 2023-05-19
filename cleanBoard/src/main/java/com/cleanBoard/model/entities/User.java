@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @Entity
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	private String userName;
-	private String nickName;
-	@Builder.Default
-	private String role="user";
-	private String password;
-	
+    private String userName;
+    private String nickName;
+    @Builder.Default
+    private String role = "user";
+    private String password;
+
     public void modify(String nickname, String password) {
         this.nickName = nickname;
         this.password = password;

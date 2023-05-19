@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cleanBoard.model.entities.Comment;
 
-public interface CommentRep extends JpaRepository<Comment, Long>{
+public interface CommentRep extends JpaRepository<Comment, Long> {
 
 }

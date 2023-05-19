@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
 
-	private Long id;
-	private String userName;
-	private String nickName;
-	private String password;
-	private LocalDateTime modDate;
-	private LocalDateTime regDate;
+    private Long id;
+    private String userName;
+    private String nickName;
+    private String password;
+    private LocalDateTime modDate;
+    private LocalDateTime regDate;
 }

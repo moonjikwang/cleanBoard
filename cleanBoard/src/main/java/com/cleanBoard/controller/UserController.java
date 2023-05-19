@@ -20,45 +20,45 @@ import com.cleanBoard.model.service.UserSvc;
 @RequestMapping("user")
 public class UserController {
 
-	@Autowired
-	UserSvc userService;
-	private final String returnIndex = "redirect:/index";
+    @Autowired
+    UserSvc userService;
+    private final String returnIndex = "redirect:/index";
 
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	@PostMapping("signup")
-	public String signup(UserDTO user, RedirectAttributes redirectAttributes, HttpServletRequest req) {
-		if (userService.validate(user.getUserName())) {
-			redirectAttributes.addFlashAttribute("message", "이미 사용중인 아이디입니다.");
-			return returnIndex;
-		} else {
-			HttpSession session = req.getSession();
-			User entity = User.builder().userName(user.getUserName()).nickName(user.getNickName())
-					.password(passwordEncoder.encode(user.getPassword())).build();
-			User userInfo = userService.signup(entity);
-			session.setAttribute("userInfo", userInfo);
-			return returnIndex;
-		}
-	}
+    @PostMapping("signup")
+    public String signup(UserDTO user, RedirectAttributes redirectAttributes, HttpServletRequest req) {
+        if (userService.validate(user.getUserName())) {
+            redirectAttributes.addFlashAttribute("message", "이미 사용중인 아이디입니다.");
+            return returnIndex;
+        } else {
+            HttpSession session = req.getSession();
+            User entity = User.builder().userName(user.getUserName()).nickName(user.getNickName())
+                    .password(passwordEncoder.encode(user.getPassword())).build();
+            User userInfo = userService.signup(entity);
+            session.setAttribute("userInfo", userInfo);
+            return returnIndex;
+        }
+    }
 
-	@PostMapping("signin")
-	public String signin(UserDTO user, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-		HttpSession session = req.getSession();
-		User userInfo = userService.signin(user.getUserName(), user.getPassword(), passwordEncoder);
-		if (userInfo != null) {
-			session.setAttribute("userInfo", userInfo);
-			return returnIndex;
-		} else {
-			redirectAttributes.addFlashAttribute("message", "아이디 또는 패스워드를 확인하세요.");
-			return returnIndex;
-		}
-	}
+    @PostMapping("signin")
+    public String signin(UserDTO user, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        HttpSession session = req.getSession();
+        User userInfo = userService.signin(user.getUserName(), user.getPassword(), passwordEncoder);
+        if (userInfo != null) {
+            session.setAttribute("userInfo", userInfo);
+            return returnIndex;
+        } else {
+            redirectAttributes.addFlashAttribute("message", "아이디 또는 패스워드를 확인하세요.");
+            return returnIndex;
+        }
+    }
 
-	@GetMapping("logout")
-	public String logout(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-		req.getSession().invalidate();
-		redirectAttributes.addFlashAttribute("message", "로그아웃 되었습니다.");
-		return returnIndex;
-	}
+    @GetMapping("logout")
+    public String logout(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        req.getSession().invalidate();
+        redirectAttributes.addFlashAttribute("message", "로그아웃 되었습니다.");
+        return returnIndex;
+    }
 
 }

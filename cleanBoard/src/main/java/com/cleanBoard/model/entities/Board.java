@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Board extends BaseEntity{
+public class Board extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long num;		  	 //글번호
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long num;             //글번호
     @Column(length = 500, nullable = false)
     private String title;
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -29,9 +29,9 @@ public class Board extends BaseEntity{
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User writer;
-	
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User writer;
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;

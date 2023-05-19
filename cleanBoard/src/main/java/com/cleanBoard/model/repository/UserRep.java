@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cleanBoard.model.entities.User;
 
-public interface UserRep extends JpaRepository<User, Long>{
+public interface UserRep extends JpaRepository<User, Long> {
 
-	User findByUserName(String userName);
+    User findByUserName(String userName);
 }

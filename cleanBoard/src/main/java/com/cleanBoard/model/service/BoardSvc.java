@@ -14,28 +14,28 @@ import com.cleanBoard.model.repository.BoardRep;
 @Service
 public class BoardSvc {
 
-	@Autowired
-	private BoardRep boardRepository;
-	
-	public Board findById(Long num) {
-		Optional<Board> optional = boardRepository.findById(num);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}
-	}
-	
-	public Page<Board> getList(String category,Pageable pageable){
-		return boardRepository.findByCategory(category,pageable);
-	}
-	
-	public Board register(Board board) {
-		return boardRepository.save(board);
-	}
-	
-	public void remove(Board board) {
-		boardRepository.delete(board);
-	}
-	
+    @Autowired
+    private BoardRep boardRepository;
+
+    public Board findById(Long num) {
+        Optional<Board> optional = boardRepository.findById(num);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            return null;
+        }
+    }
+
+    public Page<Board> getList(String category, Pageable pageable) {
+        return boardRepository.findByCategory(category, pageable);
+    }
+
+    public Board register(Board board) {
+        return boardRepository.save(board);
+    }
+
+    public void remove(Board board) {
+        boardRepository.delete(board);
+    }
+
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class Comment extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User writer;
 
     /* 댓글 수정 */
     public void update(String comment) {

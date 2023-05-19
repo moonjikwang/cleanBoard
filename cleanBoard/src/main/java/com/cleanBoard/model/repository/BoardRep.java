@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cleanBoard.model.entities.Board;
 
 
-public interface BoardRep extends JpaRepository<Board, Long>{
+public interface BoardRep extends JpaRepository<Board, Long> {
 
-	Page<Board> findByCategory(String category, Pageable pageable);
+    Page<Board> findByCategory(String category, Pageable pageable);
 }
