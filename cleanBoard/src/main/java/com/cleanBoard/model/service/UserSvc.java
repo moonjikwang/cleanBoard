@@ -2,12 +2,10 @@ package com.cleanBoard.model.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cleanBoard.model.entities.User;
-import com.cleanBoard.model.repository.BoardRep;
 import com.cleanBoard.model.repository.UserRep;
 
 import lombok.RequiredArgsConstructor;
