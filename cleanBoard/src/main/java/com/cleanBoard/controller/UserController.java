@@ -22,13 +22,15 @@ public class UserController {
 
     @Autowired
     UserSvc userService;
+    
     private final String returnIndex = "redirect:/index";
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PostMapping("signup")
     public String signup(UserDTO user, RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        if (userService.validate(user.getUserName())) {
+        
+    	if (userService.validate(user.getUserName())) {
             redirectAttributes.addFlashAttribute("message", "이미 사용중인 아이디입니다.");
             return returnIndex;
         } else {
@@ -43,8 +45,10 @@ public class UserController {
 
     @PostMapping("signin")
     public String signin(UserDTO user, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        HttpSession session = req.getSession();
+        
+    	HttpSession session = req.getSession();
         User userInfo = userService.signin(user.getUserName(), user.getPassword(), passwordEncoder);
+        
         if (userInfo != null) {
             session.setAttribute("userInfo", userInfo);
             return returnIndex;
@@ -56,8 +60,10 @@ public class UserController {
 
     @GetMapping("logout")
     public String logout(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        req.getSession().invalidate();
+        
+    	req.getSession().invalidate();
         redirectAttributes.addFlashAttribute("message", "로그아웃 되었습니다.");
+        
         return returnIndex;
     }
 

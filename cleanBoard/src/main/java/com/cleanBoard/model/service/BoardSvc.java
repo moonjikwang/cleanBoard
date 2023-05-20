@@ -10,15 +10,19 @@ import org.springframework.stereotype.Service;
 import com.cleanBoard.model.entities.Board;
 import com.cleanBoard.model.repository.BoardRep;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class BoardSvc {
 
-    @Autowired
-    private BoardRep boardRepository;
+    private final BoardRep boardRepository;
 
     public Board findById(Long num) {
+    	
         Optional<Board> optional = boardRepository.findById(num);
+        
         if (optional.isPresent()) {
             return optional.get();
         } else {

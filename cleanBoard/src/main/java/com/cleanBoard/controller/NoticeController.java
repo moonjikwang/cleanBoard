@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,21 +35,26 @@ public class NoticeController {
 
     @GetMapping("read")
     public void read(Long num, Model model) {
+    	
         Board post = boardService.findById(num);
+        
         model.addAttribute("post", post);
     }
 
     @GetMapping("list")
-    public void list(Model model, Pageable pageable) {
-        Page<Board> posts = boardService.getList(Category.NOTICE.getValue(),
-                PageRequest.of(pageable.getPageNumber(), 10, Sort.by("regDate").descending()));
+    public void list(Model model, @PageableDefault(size = 10, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable) {
+    	
+        Page<Board> posts = boardService.getList(Category.NOTICE.getValue(),pageable);
+        
         model.addAttribute("posts", posts);
     }
 
     @GetMapping("write")
     public String write(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+    	
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("userInfo");
+        
         if (user != null && user.getRole().equals(Role.ADMIN.getValue())) {
             return "notice/write";
         } else {
@@ -59,7 +65,8 @@ public class NoticeController {
 
     @GetMapping("modify")
     public String modify(Long num, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
-        Board board = boardService.findById(num);
+        
+    	Board board = boardService.findById(num);
         User user = (User) req.getSession().getAttribute("userInfo");
 
         if (user != null && user.getId().equals(board.getWriter().getId())) {// 요청자와 작성자가 일치여부확인
@@ -73,7 +80,8 @@ public class NoticeController {
 
     @GetMapping("remove")
     public String remove(Long num, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        Board board = boardService.findById(num);
+        
+    	Board board = boardService.findById(num);
         User user = (User) req.getSession().getAttribute("userInfo");
 
         if (user != null && user.getId().equals(board.getWriter().getId())) {// 요청자와 작성자가 일치여부확인
@@ -89,9 +97,11 @@ public class NoticeController {
     public String writePost(@RequestParam("category") String category, @RequestParam("id") Long id,
                             @RequestParam("title") String title, @RequestParam("content") String content,
                             RedirectAttributes redirectAttributes) {
-        User user = userService.findById(id);
+        
+    	User user = userService.findById(id);
         Board board = Board.builder().category(category).title(title).content(content).writer(user).build();
         Board result = boardService.register(board);
+        
         return getRedirectURL(result, redirectAttributes);
     }
 
@@ -99,15 +109,19 @@ public class NoticeController {
     public String modifyPost(@RequestParam("category") String category, @RequestParam("num") Long num,
                              @RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content,
                              RedirectAttributes redirectAttributes) {
-        User user = userService.findById(id);
+        
+    	User user = userService.findById(id);
         Board board = Board.builder().category(category).num(num).title(title).content(content).writer(user).build();
         Board result = boardService.register(board);
+        
         return getRedirectURL(result, redirectAttributes);
     }
 
     private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("num", board.getNum());
-        return "redirect:/" + board.getCategory() + "/read";
+        
+    	redirectAttributes.addAttribute("num", board.getNum());
+        
+    	return "redirect:/" + board.getCategory() + "/read";
     }
 
 }

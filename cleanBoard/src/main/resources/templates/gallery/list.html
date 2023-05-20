@@ -19,12 +19,10 @@
 				</div>
 				<div class="row">
 					<th:block th:each="gallery : ${posts}">
-						<div class="col-4 col-md-3 mt-3">
-							<a th:href="@{read(num=${gallery.num})}">
-								<img class="galleryImg" alt="image" width="100%" style="max-height: 10rem;" th:src="@{https://tomcat.jikwang.net/cleanBoard__${gallery.imageUrl}__}">
-								<span class="mb-0 d-block" th:text="${gallery.title}"></span>
-								<small>[[${gallery.writer.nickName}]] [[${#temporals.format(gallery.regDate,'yyyy-MM-dd')}]]</small>
-							</a>
+						<div class="col-4 col-md-3 mt-3" th:onclick="|window.location.href='read?num=${gallery.num}'|" style="cursor: pointer;">
+							<img class="galleryImg" alt="image" width="100%" style="max-height: 10rem;" th:src="@{https://tomcat.jikwang.net/cleanBoard__${gallery.imageUrl}__}">
+							<span class="mb-0 d-block" th:text="${gallery.title}"></span>
+							<small>[[${gallery.writer.nickName}]] [[${#temporals.format(gallery.regDate,'yyyy-MM-dd')}]]</small>
 						</div>
 					</th:block>
 				</div>

@@ -20,7 +20,7 @@
 				</div>
 				<div class="post mt-4">
 					<h3>[[${post.title}]]</h3>
-					<small>[[${#temporals.format(post.regDate,'yyyy-MM-dd HH:mm')}]] [[${post.writer.nickName}]]</small>
+					<small><b>[[${post.writer.nickName}]]</b> [[${#temporals.format(post.regDate,'yyyy년 MM월 dd일 HH:mm')}]]</small>
 					<hr>
 					<img style="max-width:100%" alt="image" th:src="@{https://tomcat.jikwang.net/cleanBoard__${post.imageUrl}__}">
 					<div class="content">

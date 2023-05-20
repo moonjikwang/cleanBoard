@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -40,21 +41,26 @@ public class GalleryController {
 
     @GetMapping("read")
     public void read(Long num, Model model) {
+    	
         Board post = boardService.findById(num);
+        
         model.addAttribute("post", post);
     }
 
     @GetMapping("list")
-    public void list(Model model, Pageable pageable) {
-        Page<Board> posts = boardService.getList(Category.GALLERY.getValue(),
-                PageRequest.of(pageable.getPageNumber(), 12, Sort.by("regDate").descending()));
+    public void list(Model model, @PageableDefault(size = 12, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable) {
+    	
+        Page<Board> posts = boardService.getList(Category.GALLERY.getValue(),pageable);
+        
         model.addAttribute("posts", posts);
     }
 
     @GetMapping("write")
     public String write(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+    	
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("userInfo");
+        
         if (user != null) {
             return "gallery/write";
         } else {
@@ -65,7 +71,8 @@ public class GalleryController {
 
     @GetMapping("modify")
     public String modify(Long num, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
-        Board board = boardService.findById(num);
+        
+    	Board board = boardService.findById(num);
         User user = (User) req.getSession().getAttribute("userInfo");
 
         if (user != null && user.getId().equals(board.getWriter().getId())) {// 요청자와 작성자가 일치여부확인
@@ -79,7 +86,8 @@ public class GalleryController {
 
     @GetMapping("remove")
     public String remove(Long num, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        Board board = boardService.findById(num);
+        
+    	Board board = boardService.findById(num);
         User user = (User) req.getSession().getAttribute("userInfo");
 
         if (user != null && user.getId().equals(board.getWriter().getId())) {// 요청자와 작성자가 일치여부확인
@@ -95,8 +103,10 @@ public class GalleryController {
     public String writePost(@RequestParam("category") String category, @RequestParam("id") Long id,
                             @RequestParam("title") String title, @RequestParam("content") String content,
                             @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        // 이미지 파일 유효성 검사
+        
         String imageUrl = null;
+        User user = userService.findById(id);
+        
         if (file != null) {
             if (!isImageFile(file)) {
                 redirectAttributes.addFlashAttribute("message", "이미지 파일만 업로드할 수 있습니다.");
@@ -105,17 +115,17 @@ public class GalleryController {
             imageUrl = imgUpload(file, req, redirectAttributes);
         }
         // 게시물 등록
-        User user = userService.findById(id);
-        Board board = Board.builder().category(category).imageUrl(imageUrl).title(title).content(content).writer(user)
-                .build();
+        Board board = Board.builder().category(category).imageUrl(imageUrl).title(title).content(content).writer(user).build();
         Board result = boardService.register(board);
+        
         return getRedirectURL(result, redirectAttributes);
 
     }
 
     // 이미지 업로드 메소드
     private String imgUpload(MultipartFile file, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        try {
+        
+    	try {
             String path = req.getSession().getServletContext().getRealPath("/");
             String folderPath = path + File.separator + "image"; // 폴더 경로
             File folder = new File(folderPath);
@@ -124,13 +134,13 @@ public class GalleryController {
                 folder.mkdir(); // 폴더 생성합니다. ("새폴더"만 생성)
 
             String uploadPath = folder + File.separator;
-            // 저장할 파일명 생성
             String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
             String filename = UUID.randomUUID().toString() + getFileExtension(originalFilename);
-            // 이미지 저장
+            
             file.transferTo(new File(uploadPath + filename));
-            // 이미지 URL 설정
+            
             String imageUrl = "/image/" + filename;
+            
             return imageUrl;
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("message", "사진게시판 게시글 작성에 실패했습니다.");
@@ -140,7 +150,9 @@ public class GalleryController {
 
     // 이미지 파일 유효성 검사 메소드
     private boolean isImageFile(MultipartFile file) {
+    	
         String contentType = file.getContentType();
+        
         return contentType != null && contentType.startsWith("image/");
     }
 
@@ -153,9 +165,11 @@ public class GalleryController {
     public String modifyPost(@RequestParam("category") String category, @RequestParam("num") Long num,
                              @RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content,
                              @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        User user = userService.findById(id);
+        
+    	User user = userService.findById(id);
         Board original = boardService.findById(num);
         String imageUrl = original.getImageUrl();
+        
         if (imageUrl != null && !file.isEmpty()) {
             if (!isImageFile(file)) {
                 redirectAttributes.addFlashAttribute("message", "이미지 파일만 업로드할 수 있습니다.");
@@ -163,14 +177,17 @@ public class GalleryController {
             }
             imageUrl = imgUpload(file, req, redirectAttributes);
         }
-        Board board = Board.builder().category(category).imageUrl(imageUrl).num(num).title(title).content(content)
-                .writer(user).build();
+        
+        Board board = Board.builder().category(category).imageUrl(imageUrl).num(num).title(title).content(content).writer(user).build();
         Board result = boardService.register(board);
+        
         return getRedirectURL(result, redirectAttributes);
     }
 
     private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
+    	
         redirectAttributes.addAttribute("num", board.getNum());
+        
         return "redirect:/" + board.getCategory() + "/read";
     }
 

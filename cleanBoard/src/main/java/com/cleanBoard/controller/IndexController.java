@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,12 @@ public class IndexController {
 
     @GetMapping("index")
     public void index(Model model) {
+    	
         Pageable pageable = PageRequest.of(0, 5, Sort.by("regDate").descending());
         Page<Board> posts = boardService.getList(Category.FREE.getValue(), pageable);
         Page<Board> notice = boardService.getList(Category.NOTICE.getValue(), pageable);
         Page<Board> gallery = boardService.getList(Category.GALLERY.getValue(), PageRequest.of(0, 6, Sort.by("regDate").descending()));
+        
         model.addAttribute("posts", posts);
         model.addAttribute("notice", notice);
         model.addAttribute("gallery", gallery);

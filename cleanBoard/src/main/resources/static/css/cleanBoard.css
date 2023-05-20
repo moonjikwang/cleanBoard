@@ -7,6 +7,9 @@
 	text-decoration: none;
 	color: black;
 }
+textarea {
+  resize: none;
+}
 
 html {
 	overflow-y:scroll; 
