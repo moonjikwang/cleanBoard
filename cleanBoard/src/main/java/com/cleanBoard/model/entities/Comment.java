@@ -25,7 +25,11 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User writer;
 
-    /* 댓글 수정 */
+    
+    /** 
+     * 댓글 수정
+     * @param comment
+     */
     public void update(String comment) {
         this.comment = comment;
     }

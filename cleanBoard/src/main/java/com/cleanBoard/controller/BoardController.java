@@ -31,6 +31,11 @@ public class BoardController {
     @Autowired
     private UserSvc userService;
 
+    /**
+     * 자유게시판 게시글 상세보기
+     * @param num 게시글 번호
+     * @param model 
+     */
     @GetMapping("read")
     public void read(Long num, Model model) {
     	
@@ -39,6 +44,11 @@ public class BoardController {
         model.addAttribute("post", post);
     }
 
+    /**
+     * 자유게시판 게시글 목록
+     * @param model
+     * @param pageable 페이징처리를 위한 Pageable객체
+     */
     @GetMapping("list")
     public void list(Model model, @PageableDefault(size = 10, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable) {
     	
@@ -47,6 +57,12 @@ public class BoardController {
         model.addAttribute("posts", posts);
     }
 
+    /**
+     * 자유게시판 게시글 작성페이지
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("write")
     public String write(HttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
@@ -61,6 +77,14 @@ public class BoardController {
         }
     }
 
+    /**
+     * 자유게시판 게시글 수정페이지
+     * @param num 게시글 번호
+     * @param req
+     * @param model
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("modify")
     public String modify(Long num, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
     	
@@ -76,6 +100,13 @@ public class BoardController {
         }
     }
 
+    /**
+     * 자유게시판 게시글 삭제
+     * @param num 게시글 번호
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("remove")
     public String remove(Long num, HttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
@@ -91,6 +122,15 @@ public class BoardController {
         }
     }
 
+    /**
+     * 자유게시판 게시글작성폼 전송
+     * @param category 자유게시판,갤러리,공지사항 구분
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("write")
     public String writePost(@RequestParam("category") String category, @RequestParam("id") Long id,
                             @RequestParam("title") String title, @RequestParam("content") String content,
@@ -103,6 +143,16 @@ public class BoardController {
         return getRedirectURL(result, redirectAttributes);
     }
 
+    /**
+     * 자유게시판 게시글 수정폼 전송
+     * @param category 게시글 구분
+     * @param num 게시글 번호
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("modify")
     public String modifyPost(@RequestParam("category") String category, @RequestParam("num") Long num,
                              @RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content,
@@ -115,6 +165,13 @@ public class BoardController {
         return getRedirectURL(result, redirectAttributes);
     }
 
+    
+    /** 
+     * 게시글로 돌아가기
+     * @param board
+     * @param redirectAttributes
+     * @return String
+     */
     private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
     	
         redirectAttributes.addAttribute("num", board.getNum());

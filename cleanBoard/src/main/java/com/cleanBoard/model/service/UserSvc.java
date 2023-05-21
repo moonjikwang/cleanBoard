@@ -16,6 +16,11 @@ public class UserSvc {
 
     private final UserRep userRepository;
 
+    /**
+     * 회원번호로 회원객체리턴
+     * @param id 회원번호
+     * @return
+     */
     public User findById(Long id) {
     	
         Optional<User> user = userRepository.findById(id);
@@ -27,10 +32,22 @@ public class UserSvc {
         }
     }
 
+    /**
+     * 회원가입
+     * @param user 입력받은 회원정보
+     * @return
+     */
     public User signup(User user) {
         return userRepository.save(user);
     }
 
+    /**
+     * 로그인
+     * @param userName 입력받은 아이디
+     * @param password 입력받은 패스워드
+     * @param encoder PasswordEncoder
+     * @return
+     */
     public User signin(String userName, String password, PasswordEncoder encoder) {
     	
         User origin = userRepository.findByUserName(userName);
@@ -42,6 +59,11 @@ public class UserSvc {
         }
     }
 
+    /**
+     * 기존회원여부 검증
+     * @param username 아이디
+     * @return
+     */
     public boolean validate(String username) {
     	
         User user = userRepository.findByUserName(username);

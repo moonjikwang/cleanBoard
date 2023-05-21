@@ -26,7 +26,15 @@ public class CommentController {
     @Autowired
     private UserSvc userService;
 
-    @PostMapping("/register") // 댓글 등록
+    /**
+     * 댓글 작성폼 전송
+     * @param num 게시글 번호
+     * @param id 작성자 PK
+     * @param comment 댓글 내용
+     * @param redirectAttributes
+     * @return
+     */
+    @PostMapping("/register")
     public String registerComment(@RequestParam("num") Long num, @RequestParam("id") Long id,
                                   @RequestParam("comment") String comment, RedirectAttributes redirectAttributes) {
 
@@ -38,6 +46,12 @@ public class CommentController {
         return getRedirectURL(result.getBoard(), redirectAttributes);
     }
 
+    /**
+     * 댓글 삭제
+     * @param id 댓글 번호
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("/remove") // 댓글 삭제
     public String removeComment(Long id, RedirectAttributes redirectAttributes) {
 
@@ -48,6 +62,13 @@ public class CommentController {
         return getRedirectURL(comment.getBoard(), redirectAttributes);
     }
 
+    
+    /** 
+     * 게시글로 돌아가기
+     * @param board
+     * @param redirectAttributes
+     * @return String
+     */
     private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
     	
         redirectAttributes.addAttribute("num", board.getNum());

@@ -27,6 +27,13 @@ public class UserController {
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    /**
+     * 회원가입
+     * @param user 회원정보
+     * @param redirectAttributes
+     * @param req
+     * @return
+     */
     @PostMapping("signup")
     public String signup(UserDTO user, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         
@@ -43,6 +50,13 @@ public class UserController {
         }
     }
 
+    /**
+     * 로그인
+     * @param user 유저정보
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("signin")
     public String signin(UserDTO user, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         
@@ -58,6 +72,12 @@ public class UserController {
         }
     }
 
+    /**
+     * 로그아웃
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("logout")
     public String logout(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         

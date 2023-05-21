@@ -23,6 +23,12 @@ public class User extends BaseEntity {
     private String role = "user";
     private String password;
 
+    
+    /** 
+     * 회원정보 수정
+     * @param nickname 아이디
+     * @param password 비밀번호
+     */
     public void modify(String nickname, String password) {
         this.nickName = nickname;
         this.password = password;

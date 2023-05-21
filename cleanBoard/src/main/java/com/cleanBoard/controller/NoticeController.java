@@ -32,6 +32,11 @@ public class NoticeController {
     @Autowired
     private UserSvc userService;
 
+    
+    /** 
+     * @param num
+     * @param model
+     */
     @GetMapping("read")
     public void read(Long num, Model model) {
     	
@@ -40,6 +45,11 @@ public class NoticeController {
         model.addAttribute("post", post);
     }
 
+    /**
+     * 공지사항 목록
+     * @param model
+     * @param pageable
+     */
     @GetMapping("list")
     public void list(Model model, @PageableDefault(size = 10, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable) {
     	
@@ -48,6 +58,12 @@ public class NoticeController {
         model.addAttribute("posts", posts);
     }
 
+    /**
+     * 공지사항 게시글 작성페이지
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("write")
     public String write(HttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
@@ -62,6 +78,14 @@ public class NoticeController {
         }
     }
 
+    /**
+     * 공지사항 게시글 수정페이지
+     * @param num 게시글 번호
+     * @param req
+     * @param model
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("modify")
     public String modify(Long num, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
         
@@ -77,6 +101,13 @@ public class NoticeController {
         }
     }
 
+    /**
+     * 공지사항 게시글 삭제
+     * @param num 게시글 번호
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("remove")
     public String remove(Long num, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         
@@ -92,6 +123,15 @@ public class NoticeController {
         }
     }
 
+    /**
+     * 공지사항 게시글 작성폼 전송
+     * @param category 게시글 구분
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("write")
     public String writePost(@RequestParam("category") String category, @RequestParam("id") Long id,
                             @RequestParam("title") String title, @RequestParam("content") String content,
@@ -104,6 +144,16 @@ public class NoticeController {
         return getRedirectURL(result, redirectAttributes);
     }
 
+    /**
+     * 공지사항 게시글 수정폼 전송
+     * @param category 게시글 구분
+     * @param num 게시글 번호
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("modify")
     public String modifyPost(@RequestParam("category") String category, @RequestParam("num") Long num,
                              @RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content,

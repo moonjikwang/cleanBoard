@@ -31,7 +31,12 @@ public class Board extends BaseEntity {
     private List<Comment> comments;
     @ManyToOne(fetch = FetchType.LAZY)
     private User writer;
-
+    
+    /** 
+     * 게시글 update
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     */
     public void update(String title, String content) {
         this.title = title;
         this.content = content;

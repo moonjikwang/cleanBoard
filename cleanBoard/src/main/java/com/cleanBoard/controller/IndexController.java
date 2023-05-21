@@ -20,6 +20,10 @@ public class IndexController {
     @Autowired
     private BoardSvc boardService;
 
+    
+    /** 
+     * @return String
+     */
     @GetMapping("/")
     public String getIndexPage() {
         return "redirect:index";

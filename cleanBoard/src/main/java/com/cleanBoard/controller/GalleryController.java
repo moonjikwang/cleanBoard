@@ -38,6 +38,11 @@ public class GalleryController {
     private UserSvc userService;
     private final String returnIndex = "redirect:/index";
 
+    /**
+     * 사진게시판 게시글 상세보기
+     * @param num 게시글 번호
+     * @param model
+     */
     @GetMapping("read")
     public void read(Long num, Model model) {
     	
@@ -46,6 +51,11 @@ public class GalleryController {
         model.addAttribute("post", post);
     }
 
+    /**
+     * 사진게시판 리스트 출력
+     * @param model
+     * @param pageable
+     */
     @GetMapping("list")
     public void list(Model model, @PageableDefault(size = 12, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable) {
     	
@@ -54,6 +64,12 @@ public class GalleryController {
         model.addAttribute("posts", posts);
     }
 
+    /**
+     * 사진게시판 게시글 작성페이지
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("write")
     public String write(HttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
@@ -68,6 +84,14 @@ public class GalleryController {
         }
     }
 
+    /**
+     * 사진게시판 게시글 수정 페이지
+     * @param num 게시글 번호
+     * @param req
+     * @param model
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("modify")
     public String modify(Long num, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
         
@@ -83,6 +107,13 @@ public class GalleryController {
         }
     }
 
+    /**
+     * 사진게시판 게시글 삭제
+     * @param num 게시글 번호
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("remove")
     public String remove(Long num, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         
@@ -98,6 +129,17 @@ public class GalleryController {
         }
     }
 
+    /**
+     * 사진게시판 게시글작성폼 전송
+     * @param category 게시글 구분
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param file 게시글 첨부파일
+     * @param redirectAttributes
+     * @param req
+     * @return
+     */
     @PostMapping("write")
     public String writePost(@RequestParam("category") String category, @RequestParam("id") Long id,
                             @RequestParam("title") String title, @RequestParam("content") String content,
@@ -121,7 +163,13 @@ public class GalleryController {
 
     }
 
-    // 이미지 업로드 메소드
+    /**
+     * 이미지 업로드 메소드
+     * @param file 전송받은 파일
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
     private String imgUpload(MultipartFile file, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         
     	try {
@@ -147,7 +195,11 @@ public class GalleryController {
         }
     }
 
-    // 이미지 파일 유효성 검사 메소드
+    /**
+     * 이미지 파일 유효성 검사 메소드
+     * @param file
+     * @return
+     */
     private boolean isImageFile(MultipartFile file) {
     	
         String contentType = file.getContentType();
@@ -155,11 +207,27 @@ public class GalleryController {
         return contentType != null && contentType.startsWith("image/");
     }
 
-    // 파일 확장자 추출 메소드
+    /**
+     * 파일 확장자 추출 메소드
+     * @param filename
+     * @return
+     */
     private String getFileExtension(String filename) {
         return StringUtils.getFilenameExtension(filename);
     }
 
+    /**
+     * 사진게시판 게시글 수정폼 전송
+     * @param category 게시글 구분
+     * @param num 게시글 번호
+     * @param id 작성자 PK
+     * @param title 게시글 제목
+     * @param content 게시글 내용
+     * @param file 게시글 첨부파일
+     * @param redirectAttributes
+     * @param req
+     * @return
+     */
     @PostMapping("modify")
     public String modifyPost(@RequestParam("category") String category, @RequestParam("num") Long num,
                              @RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content,
@@ -183,6 +251,13 @@ public class GalleryController {
         return getRedirectURL(result, redirectAttributes);
     }
 
+    
+    /** 
+     * 게시글로 돌아가기
+     * @param board
+     * @param redirectAttributes
+     * @return String
+     */
     private String getRedirectURL(Board board, RedirectAttributes redirectAttributes) {
     	
         redirectAttributes.addAttribute("num", board.getNum());
